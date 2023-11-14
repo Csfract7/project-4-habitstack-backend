@@ -30,9 +30,9 @@ app.use(express.urlencoded({extended: true}))
 
 
 // ROUTES
-app.get("/", (req, res) => {
-  res.send("sanity check");
-});
+// app.get("/", (req, res) => {
+//   res.send("sanity check");
+// });
 
 //check the routes index.js for ALL routes so we save space on server.js
 app.use('/', routes)
