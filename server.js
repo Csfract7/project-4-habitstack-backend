@@ -2,7 +2,7 @@
 require("dotenv").config();
 
 //pull PORT from .env
-const { PORT } = process.env.PORT;
+const { PORT } = process.env;
 
 //import express
 const express = require("express");
