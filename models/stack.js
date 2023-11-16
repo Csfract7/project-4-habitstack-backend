@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Habit = require("./habit"); // Import the Habit model
 
 const StackSchema = new mongoose.Schema({
     name: {type:'String'},
@@ -7,7 +8,8 @@ const StackSchema = new mongoose.Schema({
     time: {type:'String'},
     place: {type:'String'},
     completed: {type:'String'},
-    image: {type:'String'}
+    image: {type:'String'},
+    habits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Habit' }]
   }, {timestamps: true});
   
 const Stack = mongoose.model("Stack", StackSchema);
