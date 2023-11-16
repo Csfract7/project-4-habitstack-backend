@@ -5,7 +5,8 @@ const db = require('../models')
 //Stack INDEX ROUTE '/Stack'
 const getStack = async (req, res) => {
     try{
-        const foundStack = await db.Stack.find({})
+        const foundStack = await db.Stack.find({}).populate('habits');
+
         if(!foundStack){
             res.status(404).json({message: "Cannot find Stack"})
         } else {
