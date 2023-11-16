@@ -20,21 +20,46 @@ const getStack = async (req, res) => {
 
 
 //Stack CREATE ROUTE
+
 const createStack = async (req, res) => {
-    try{
-        const createdStack = await db.Stack.create(req.body)
-        createdStack.save()
-        if(!createdStack){
-            res.status(400).json({message: "Cannot create Stack"})
+    try {
+        const { habits, ...stackData } = req.body;
+
+        // Create the stack without habits first
+        const createdStack = await db.Stack.create(stackData);
+
+        // Now, add habits to the stack one by one
+        for (const habitId of habits) {
+            const habitToAdd = await db.Habit.findById(habitId);
+            if (habitToAdd) {
+                createdStack.habits.push(habitToAdd);
+            }
         }
-        else {
-            res.status(201).json({message: "Stack created", data: createdStack})
-        }
-    } catch(err) {
-        res.status(400).json({error: err.message})
+
+        // Save the updated stack with habits
+        await createdStack.save();
+
+        res.status(201).json({ message: "Stack created", data: createdStack });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
-    //res.send('createStack')
-}
+};
+
+// const createStack = async (req, res) => {
+//     try{
+//         const createdStack = await db.Stack.create(req.body)
+//         createdStack.save()
+//         if(!createdStack){
+//             res.status(400).json({message: "Cannot create Stack"})
+//         }
+//         else {
+//             res.status(201).json({message: "Stack created", data: createdStack})
+//         }
+//     } catch(err) {
+//         res.status(400).json({error: err.message})
+//     }
+//     //res.send('createStack')
+// }
 
 
 //Stack UPDATE ROUTE
