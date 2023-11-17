@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const Stack = require("./stack");
 
 const ProgressSchema = new mongoose.Schema({
-    stackname: { type: mongoose.Schema.Types.ObjectId, ref: 'Stack' },
-    completed: { type: mongoose.Schema.Types.ObjectId, ref: 'Stack' },
-    image: { type: mongoose.Schema.Types.ObjectId, ref: 'Stack' }
+    stackname: { Stack },
+    completed: { Stack },
+    image: {Stack}
   }, {timestamps: true});
   
 const Progress = mongoose.model("Progress", ProgressSchema);
