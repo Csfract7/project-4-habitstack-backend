@@ -36,12 +36,13 @@ const createStack = async (req, res) => {
         const createdStack = await db.Stack.create(stackData);
 
         // Now, add habits to the stack one by one
-        for (const habitId of habits) {
-            const habitToAdd = await db.Habit.findById(habitId);
+        for (const habitName of habits) { // Change 'habitId' to 'habitName'
+            const habitToAdd = await db.Habit.findOne({ name: habitName }); // Find by name
             if (habitToAdd) {
                 createdStack.habits.push(habitToAdd);
             }
         }
+        
 
         // Save the updated stack with habits
         await createdStack.save();
