@@ -25,6 +25,10 @@ const createStack = async (req, res) => {
     try {
         const { habits, ...stackData } = req.body;
 
+        if (!Array.isArray(habits)) {
+            return res.status(400).json({ error: "Habits must be an array" });
+        }
+
         // Create the stack without habits first
         const createdStack = await db.Stack.create(stackData);
 
@@ -44,6 +48,7 @@ const createStack = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
 
 // const createStack = async (req, res) => {
 //     try{
