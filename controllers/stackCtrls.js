@@ -25,7 +25,10 @@ const createStack = async (req, res) => {
     try {
         const { habits, ...stackData } = req.body;
 
+        console.log("Received request to create stack with data:", req.body);
+
         if (!Array.isArray(habits)) {
+            console.log("Error: Habits must be an array");
             return res.status(400).json({ error: "Habits must be an array" });
         }
 
@@ -43,11 +46,15 @@ const createStack = async (req, res) => {
         // Save the updated stack with habits
         await createdStack.save();
 
+        console.log("Stack created successfully:", createdStack);
+
         res.status(201).json({ message: "Stack created", data: createdStack });
     } catch (err) {
+        console.error("Error creating stack:", err.message);
         res.status(400).json({ error: err.message });
     }
 };
+
 
 
 // const createStack = async (req, res) => {

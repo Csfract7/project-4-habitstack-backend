@@ -15,4 +15,6 @@ const StackSchema = new mongoose.Schema({
 const Stack = mongoose.model("Stack", StackSchema);
 //   const Stack = mongoose.model("Stack", StackSchema);
   
+console.log("Stack model loaded");
+
   module.exports = Stack
