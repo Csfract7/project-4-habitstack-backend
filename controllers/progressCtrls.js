@@ -23,20 +23,27 @@ const getProgress = async (req, res) => {
 
 //Progress CREATE ROUTE
 const createProgress = async (req, res) => {
-    try{
-        const createdProgress = await db.Progress.create(req.body)
-        createdProgress.save()
-        if(!createdProgress){
-            res.status(400).json({message: "Cannot create Progress"})
+    try {
+        // Extract stack IDs from the request body
+        const { name, completed, image } = req.body;
+
+        // Create Progress document with valid Stack references
+        const createdProgress = await db.Progress.create({
+            name: name,  // Make sure name is a valid Stack ID
+            completed: completed,  // Make sure completed is a valid Stack ID
+            image: image  // Make sure image is a valid Stack ID
+        });
+
+        if (!createdProgress) {
+            res.status(400).json({ message: "Cannot create Progress" });
+        } else {
+            res.status(201).json({ message: "Progress created", data: createdProgress });
         }
-        else {
-            res.status(201).json({message: "Progress created", data: createdProgress})
-        }
-    } catch(err) {
-        res.status(400).json({error: err.message})
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
-    //res.send('createProgress')
 }
+
 
 
 //Progress UPDATE ROUTE

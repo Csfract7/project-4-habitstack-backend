@@ -4,7 +4,7 @@ const CalendarSchema = new mongoose.Schema({
     year: {type:'String'},
     month: {type:'String'},
     day: {type:'String'},
-    stackname: {type:'String'},
+    name: {type:'String'},
     completed: {type:'String'}
   }, {timestamps: true});
   
