@@ -4,18 +4,21 @@ const db = require('../models')
 
 //Progress INDEX ROUTE '/Progress'
 const getProgress = async (req, res) => {
-    try{
+    try {
         const foundProgress = await db.Progress.find({})
-        if(!foundProgress){
-            res.status(404).json({message: "Cannot find Progress"})
+            .populate('name completed image'); // Populate the referenced fields from the Stack model
+
+        if (!foundProgress) {
+            res.status(404).json({ message: "Cannot find Progress" });
         } else {
-            res.status(200).json({data: foundProgress})
+            res.status(200).json({ data: foundProgress });
         }
-    } catch(err) {
-        res.status(400).json({error: err.message})
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
     //res.send('getProgress')
 }
+
 
 
 //Progress CREATE ROUTE
